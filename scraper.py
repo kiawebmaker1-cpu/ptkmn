@@ -76,6 +76,15 @@ def main():
             response = requests.get(search_url, params=params)
             data = response.json()
             
+            # --- TAMBAHAN BARU: Cek error dari Google API ---
+            status = data.get('status')
+            print(f"  -> Status dari Google: {status}")
+            
+            if status != 'OK':
+                print(f"  -> Detail lengkap dari Google: {data}")
+                break # Lewati query ini jika ada error / kosong
+            # ------------------------------------------------
+            
             results = data.get('results', [])
             
             for place in results:
